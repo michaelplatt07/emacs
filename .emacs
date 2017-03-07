@@ -2,7 +2,7 @@
 ;; M + x list-packages
 ;; Select any of the packages you wish to install.
 ;; Currently installed packages are:
-;; hl-todo, auto-complete, tabbar
+;; hl-todo, auto-complete, tabbar, javadoc-lookup
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -82,6 +82,8 @@
 (global-set-key (kbd "C-r") 'query-replace)
 (global-set-key (kbd "C-SPC") 'auto-complete)
 (global-set-key (kbd "M-d") 'diff)
+(global-set-key (kbd "C-j") 'javadoc-lookup)
+(global-set-key (kbd "M-j") 'javadoc-sort-imports)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
