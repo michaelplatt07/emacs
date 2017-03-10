@@ -30,7 +30,7 @@
  '(global-hl-line-mode t)
  '(global-hl-todo-mode t)
  '(tabbar-mode t)
- '(hl-todo-activate-in-modes (quote (java-mode emacs-lisp-mode python-mode)))
+ '(hl-todo-activate-in-modes (quote (java-mode emacs-lisp-mode python-mode c++-mode)))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(ido-mode t)
  )
