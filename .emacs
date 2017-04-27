@@ -17,6 +17,11 @@
 (require 'auto-complete)
 (global-auto-complete-mode t)
 
+;; Requires pip to be installed and yapf installed.
+;; Uncomment to 
+;;(require 'yapfify)
+;;(add-hook 'python-mode-hook 'yapf-mode)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
