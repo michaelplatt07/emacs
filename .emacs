@@ -55,7 +55,7 @@
  	;; Goto last prompt, clear old input if any, and insert new one
  	(goto-char (point-max))
  	(comint-kill-input)
- 	(insert "cd C:/Users/maplatt/Desktop/VideoGame/tloll/tloll")
+ 	(insert "cd PATH/TO/GRADLE/PROEJCT")
  	;; Execute
  	(comint-send-input)
  	(insert "gradle build run")
