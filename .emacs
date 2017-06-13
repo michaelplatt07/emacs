@@ -47,7 +47,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-(defun custom-compile-tloll ()
+(defun custom-function ()
  	(interactive)
  	(other-window 1)
  	;; Switch to `*shell*'
@@ -80,7 +80,7 @@
 (global-set-key (kbd "M-f") 'occur)
 (global-set-key (kbd "C-l") 'goto-line)
 (global-set-key (kbd "C-b") 'switch-to-buffer)
-(global-set-key (kbd "M-m") 'custom-compile-tloll)
+(global-set-key (kbd "M-m") 'custom-function)
 (global-set-key (kbd "C-c m") 'null)
 (global-set-key (kbd "C-x z") 'null)
 (global-set-key (kbd "C-x C-z") 'null)
