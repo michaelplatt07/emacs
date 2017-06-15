@@ -2,7 +2,7 @@
 ;; M + x list-packages
 ;; Select any of the packages you wish to install.
 ;; Currently installed packages are:
-;; hl-todo, auto-complete, tabbar, highlight-parentheses, javadoc-lookup
+;; hl-todo, auto-complete, tabbar, highlight-parentheses, json-mode, json-reformat, javadoc-lookup
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
