@@ -1,27 +1,37 @@
-;; In order to add new packages, run the command:
-;; M + x list-packages
-;; Select any of the packages you wish to install.
 ;; Currently installed packages are:
 ;; hl-todo, auto-complete, tabbar, highlight-parentheses, json-mode, json-reformat, javadoc-lookup
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+;; Setting up the list of packages that will be automatically installed.
+;; Add any new desired packages to this list.  They are white space delimitted.
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat))
+
+;; Adding the melpa package archive for melpa packages.
+;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(setq package-enable-at-startup nil)
 (package-initialize)
 
-(require 'package) ;; You might already have this line
-(add-to-list 'package-archives
-         	'("melpa" . "http://melpa.org/packages/"))
+;; Refresh the list of packages.
+(unless package-archive-contents
+  (package-refresh-contents))
 
+;; Loop over the list of packages desired for installing and if they aren't
+;; installed go ahead and install them.
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+
+;; Setting global auto complete mode.
 (require 'auto-complete)
 (global-auto-complete-mode t)
 
+;; Setting global parentheses highlight mode.
 (require `highlight-parentheses)
 (global-highlight-parentheses-mode t)
 
+;; Yapify to allow for formatting of Python Code to PEP standard.
 ;; Requires pip to be installed and yapf installed.
-;; Uncomment to 
 ;;(require 'yapfify)
 ;;(add-hook 'python-mode-hook 'yapf-mode)
 
@@ -35,6 +45,7 @@
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-enabled-themes (quote (deeper-blue)))
+ ;; Setting up minor global modes. 
  '(global-hl-line-mode t)
  '(global-hl-todo-mode t)
  '(tabbar-mode t)
@@ -50,6 +61,7 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; Sample function that shows how you could shell out if you wanted.
 (defun custom-function ()
  	(interactive)
  	(other-window 1)
@@ -66,6 +78,8 @@
  	(other-window 1)
  	)
 
+;; Setting up hotkeys for my customization
+;; Use C-h k to describe a key so you can modify the hotkey as desired.
 (global-set-key (kbd "<C-tab>") 'other-window)
 (global-set-key (kbd "C-k") 'kill-this-buffer)
 (global-set-key (kbd "C-.") 'next-buffer)
