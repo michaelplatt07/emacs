@@ -38,6 +38,7 @@
  '(hl-todo-activate-in-modes (quote (java-mode emacs-lisp-mode python-mode c++-mode)))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(ido-mode t)
+ '(show-paren-mode t)
  )
 
 (custom-set-faces
