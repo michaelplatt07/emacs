@@ -106,6 +106,7 @@
 (global-set-key (kbd "M-d") 'diff)
 (global-set-key (kbd "C-j") 'javadoc-lookup)
 (global-set-key (kbd "M-j") 'javadoc-sort-imports)
+(global-set-key (kbd "M-r") 'revert-buffer)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
