@@ -3,7 +3,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
