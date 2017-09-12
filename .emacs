@@ -30,6 +30,10 @@
 (require `highlight-parentheses)
 (global-highlight-parentheses-mode t)
 
+;; Declaring some major modes for custom types of files.  More of a convenience than anything else.
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . html-mode))
+
 ;; Yapify to allow for formatting of Python Code to PEP standard.
 ;; Requires pip to be installed and yapf installed.
 ;;(require 'yapfify)
