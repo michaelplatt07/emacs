@@ -88,8 +88,12 @@
 (global-set-key (kbd "C-k") 'kill-this-buffer)
 (global-set-key (kbd "C-.") 'next-buffer)
 (global-set-key (kbd "C-,") 'previous-buffer)
+(global-set-key (kbd "C-M-f") 'forward-char)
+(global-set-key (kbd "C-M-d") 'backward-char)
 (global-set-key (kbd "C-f") 'right-word)
 (global-set-key (kbd "C-d") 'left-word)
+(global-set-key (kbd "C-M-n") 'next-line)
+(global-set-key (kbd "C-M-p") 'previous-line)
 (global-set-key (kbd "C-n") 'forward-paragraph)
 (global-set-key (kbd "C-p") 'backward-paragraph)
 (global-set-key (kbd "C-/") nil)
@@ -116,3 +120,4 @@
 (menu-bar-mode -1)
 (setq scroll-step 1) ;;Scroll one line at a time
 (setq backup-directory-alist `(("." . "~/.saves")))
+
