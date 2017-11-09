@@ -3,7 +3,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp php-mode batch-mode))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -33,6 +33,7 @@
 ;; Declaring some major modes for custom types of files.  More of a convenience than anything else.
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.bat\\'" . batch-mode))
 
 ;; Yapify to allow for formatting of Python Code to PEP standard.
 ;; Requires pip to be installed and yapf installed.
@@ -53,7 +54,7 @@
  '(global-hl-line-mode t)
  '(global-hl-todo-mode t)
  '(tabbar-mode t)
- '(hl-todo-activate-in-modes (quote (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode)))
+ '(hl-todo-activate-in-modes (quote (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode batch-mode)))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(ido-mode t)
  )
