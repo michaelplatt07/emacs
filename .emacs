@@ -50,14 +50,17 @@
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-enabled-themes (quote (deeper-blue)))
- ;; Setting up minor global modes. 
  '(global-hl-line-mode t)
  '(global-hl-todo-mode t)
- '(tabbar-mode t)
- '(hl-todo-activate-in-modes (quote (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode batch-mode)))
+ '(hl-todo-activate-in-modes
+   (quote
+    (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode batch-mode)))
+ '(ido-mode t nil (ido))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
- '(ido-mode t)
- )
+ '(package-selected-packages
+   (quote
+    (batch-mode php-mode anything-tramp pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo)))
+ '(tabbar-mode t nil (tabbar)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -83,42 +86,54 @@
  	(other-window 1)
  	)
 
-;; Setting up hotkeys for my customization
-;; Use C-h k to describe a key so you can modify the hotkey as desired.
-(global-set-key (kbd "<C-tab>") 'other-window)
-(global-set-key (kbd "C-k") 'kill-this-buffer)
-(global-set-key (kbd "C-.") 'next-buffer)
-(global-set-key (kbd "C-,") 'previous-buffer)
-(global-set-key (kbd "C-M-f") 'forward-char)
-(global-set-key (kbd "C-M-d") 'backward-char)
-(global-set-key (kbd "C-f") 'right-word)
-(global-set-key (kbd "C-d") 'left-word)
-(global-set-key (kbd "C-M-n") 'next-line)
-(global-set-key (kbd "C-M-p") 'previous-line)
-(global-set-key (kbd "C-n") 'forward-paragraph)
-(global-set-key (kbd "C-p") 'backward-paragraph)
-(global-set-key (kbd "C-/") nil)
-(global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "M-b") 'kill-region)
-(global-set-key (kbd "M-c") 'kill-ring-save)
-(global-set-key (kbd "M-v") 'yank)
-(global-set-key (kbd "M-l") 'goto-line)
-(global-set-key (kbd "M-f") 'occur)
-(global-set-key (kbd "C-l") 'goto-line)
-(global-set-key (kbd "C-b") 'switch-to-buffer)
-(global-set-key (kbd "M-m") 'custom-function)
-(global-set-key (kbd "C-c m") 'null)
-(global-set-key (kbd "C-x z") 'null)
-(global-set-key (kbd "C-x C-z") 'null)
-(global-set-key (kbd "C-r") 'query-replace)
-(global-set-key (kbd "C-SPC") 'auto-complete)
-(global-set-key (kbd "M-d") 'diff)
-(global-set-key (kbd "C-j") 'javadoc-lookup)
-(global-set-key (kbd "M-j") 'javadoc-sort-imports)
-(global-set-key (kbd "M-r") 'revert-buffer)
+;; Creating the key map the minor mode will use.
+(defvar my-keys-minor-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "<C-tab>") 'other-window)
+     (define-key map (kbd "C-k") 'kill-this-buffer)
+     (define-key map (kbd "C-.") 'next-buffer)
+     (define-key map (kbd "C-,") 'previous-buffer)
+     (define-key map (kbd "C-M-f") 'forward-char)
+     (define-key map (kbd "C-M-d") 'backward-char)
+     (define-key map (kbd "C-f") 'right-word)
+     (define-key map (kbd "C-d") 'left-word)
+     (define-key map (kbd "C-M-n") 'next-line)
+     (define-key map (kbd "C-M-p") 'previous-line)
+     (define-key map (kbd "C-n") 'forward-paragraph)
+     (define-key map (kbd "C-p") 'backward-paragraph)
+     (define-key map (kbd "C-/") nil)
+     (define-key map (kbd "C-z") 'undo)
+     (define-key map (kbd "M-b") 'kill-region)
+     (define-key map (kbd "M-c") 'kill-ring-save)
+     (define-key map (kbd "M-v") 'yank)
+     (define-key map (kbd "M-l") 'goto-line)
+     (define-key map (kbd "M-f") 'occur)
+     (define-key map (kbd "C-l") 'goto-line)
+     (define-key map (kbd "C-b") 'switch-to-buffer)
+     (define-key map (kbd "M-m") 'custom-function)
+     (define-key map (kbd "C-c m") 'null)
+     (define-key map (kbd "C-x z") 'null)
+     (define-key map (kbd "C-x C-z") 'null)
+     (define-key map (kbd "C-r") 'query-replace)
+     (define-key map (kbd "C-SPC") 'auto-complete)
+     (define-key map (kbd "M-d") 'diff)
+     (define-key map (kbd "C-j") 'javadoc-lookup)
+     (define-key map (kbd "M-j") 'javadoc-sort-imports)
+     (define-key map (kbd "M-r") 'revert-buffer)
+     map)
+    "my-keys-minor-mode keymap.")
+
+;; Defining the key mode.
+(define-minor-mode my-keys-minor-mode
+  "A minor mode with customized key bindings to ensure they override the major modes."
+  :init-value t
+  :lighter " my-keys")
+
+;; Enabling key mode.
+(my-keys-minor-mode 1)
+
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (setq scroll-step 1) ;;Scroll one line at a time
 (setq backup-directory-alist `(("." . "~/.saves")))
-
