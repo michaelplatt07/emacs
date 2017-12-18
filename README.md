@@ -22,7 +22,7 @@ Earlier I mentioned using Melpa to find some packages.  The link is below:
 
 https://melpa.org/#/
 
-This site is great for browing a number of packages to find useful functionality.  However, Melpa isn't compatible with older versions of Emacs.  I currently run 24.x as that is what is available through the Linux package manager and Melpa packages work wonderfully with it.
+This site is great for browsing a number of packages to find useful functionality.  However, Melpa isn't compatible with older versions of Emacs.  I currently run 24.x as that is what is available through the Linux package manager and Melpa packages work wonderfully with it.
 
 I will be adding more links as I need them but if there are any suggestions for good packages or package archives please let me know to keep the list up to date.
 
