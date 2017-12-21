@@ -1,5 +1,4 @@
-;; Currently installed packages are:
-;; hl-todo, auto-complete, tabbar, highlight-parentheses, json-mode, json-reformat, javadoc-lookup
+;; If you are experiencing a package not found error then you need to run the command package-refresh-contents
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
