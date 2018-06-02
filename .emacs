@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp php-mode batch-mode))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp php-mode batch-mode flex-autopair))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -28,6 +28,10 @@
 ;; Setting global parentheses highlight mode.
 (require `highlight-parentheses)
 (global-highlight-parentheses-mode t)
+
+;; Setting global flex autopair mode.
+(require 'flex-autopair)
+(flex-autopair-mode 1)
 
 ;; Declaring some major modes for custom types of files.  More of a convenience than anything else.
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
@@ -131,6 +135,7 @@
 ;; Enabling key mode.
 (my-keys-minor-mode 1)
 
+;; Some additional settings.
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
