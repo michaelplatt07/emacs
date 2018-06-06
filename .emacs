@@ -25,18 +25,21 @@
 (require 'auto-complete)
 (global-auto-complete-mode t)
 
-;; Setting global parentheses highlight mode.
-(require `highlight-parentheses)
-(global-highlight-parentheses-mode t)
-
 ;; Setting global flex autopair mode.
 (require 'flex-autopair)
 (flex-autopair-mode 1)
+
+
+;; Setting global parentheses highlight mode.
+(require `highlight-parentheses)
+(global-highlight-parentheses-mode t)
 
 ;; Declaring some major modes for custom types of files.  More of a convenience than anything else.
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.bat\\'" . batch-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.hbs\\'" . html-mode))
 
 ;; Yapify to allow for formatting of Python Code to PEP standard.
 ;; Requires pip to be installed and yapf installed.
@@ -81,13 +84,65 @@
  	;; Goto last prompt, clear old input if any, and insert new one
  	(goto-char (point-max))
  	(comint-kill-input)
- 	(insert "cd PATH/TO/GRADLE/PROEJCT")
+ 	(insert "cd /DIRECTORY/TO/PROJECT")
  	;; Execute
  	(comint-send-input)
  	(insert "gradle build run")
  	(comint-send-input)
  	(other-window 1)
  	)
+
+;; Add TODO key binding for Java mode.
+(defun insert-todo-java-mode ()
+  (interactive)
+  (insert "// TODO(map) : ")
+  )
+(defun my-java-mode-config ()
+  "For use in `html-mode-hook'."
+  (local-set-key (kbd "C-t") 'insert-todo-java-mode)
+  )
+(add-hook 'java-mode-hook 'my-java-mode-config)
+
+;; Add TODO key binding for Java mode.
+(defun insert-todo-java-mode ()
+  (interactive)
+  (insert "// TODO(map) : ")
+  )
+(defun my-java-mode-config ()
+  (local-set-key (kbd "C-t") 'insert-todo-java-mode)
+  )
+(add-hook 'java-mode-hook 'my-java-mode-config)
+
+;; Add TODO key binding for Python mode.
+(defun insert-todo-python-mode ()
+  (interactive)
+  (insert "# TODO(map) : ")
+  )
+(defun my-python-mode-config ()
+  (local-set-key (kbd "C-t") 'insert-todo-python-mode)
+  )
+(add-hook 'python-mode-hook 'my-python-mode-config)
+
+;; Add TODO key binding for HTML mode.
+(defun insert-todo-html-mode ()
+  (interactive)
+  (insert "<!-- TODO(map) : -->")
+  )
+(defun my-html-mode-config ()
+  (local-set-key (kbd "C-t") 'insert-todo-html-mode)
+  )
+(add-hook 'html-mode-hook 'my-html-mode-config)
+
+
+;; Add TODO key binding for C++ mode.
+(defun insert-todo-c++-mode ()
+  (interactive)
+  (insert "// TODO(map) : ")
+  )
+(defun my-c++-mode-config ()
+  (local-set-key (kbd "C-t") 'insert-todo-c++-mode)
+  )
+(add-hook 'c++-mode-hook 'my-c++-mode-config)
 
 ;; Creating the key map the minor mode will use.
 (defvar my-keys-minor-mode-map
@@ -134,6 +189,14 @@
 
 ;; Enabling key mode.
 (my-keys-minor-mode 1)
+
+;; Set python files to use 4 spaces instead of tabs.
+(add-hook 'python-mode-hook
+      (lambda ()
+        (setq indent-tabs-mode nil)
+        (setq tab-width 4)
+        (setq python-indent 4)))
+
 
 ;; Some additional settings.
 (scroll-bar-mode -1)
