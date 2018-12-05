@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp php-mode batch-mode flex-autopair))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp php-mode batch-mode autopair flex-autopair))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -26,9 +26,12 @@
 (global-auto-complete-mode t)
 
 ;; Setting global flex autopair mode.
-(require 'flex-autopair)
-(flex-autopair-mode 1)
+;; (require 'flex-autopair)
+;; (flex-autopair-mode 1)
 
+;; Using autopair because it deletes things nicely.
+(require 'autopair)
+(autopair-global-mode 1)
 
 ;; Setting global parentheses highlight mode.
 (require `highlight-parentheses)
@@ -40,6 +43,7 @@
 (add-to-list 'auto-mode-alist '("\\.bat\\'" . batch-mode))
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.ejs\\'" . html-mode))
 
 ;; Yapify to allow for formatting of Python Code to PEP standard.
 ;; Requires pip to be installed and yapf installed.
@@ -84,7 +88,7 @@
  	;; Goto last prompt, clear old input if any, and insert new one
  	(goto-char (point-max))
  	(comint-kill-input)
- 	(insert "cd /DIRECTORY/TO/PROJECT")
+ 	(insert "cd /home/michael/Desktop/VideoGame/tloll")
  	;; Execute
  	(comint-send-input)
  	(insert "gradle build run")
@@ -103,15 +107,15 @@
   )
 (add-hook 'java-mode-hook 'my-java-mode-config)
 
-;; Add TODO key binding for Java mode.
-(defun insert-todo-java-mode ()
+;; Add TODO key binding for JavaScript mode.
+(defun insert-todo-javascript-mode ()
   (interactive)
   (insert "// TODO(map) : ")
   )
-(defun my-java-mode-config ()
-  (local-set-key (kbd "C-t") 'insert-todo-java-mode)
+(defun my-javascript-mode-config ()
+  (local-set-key (kbd "C-t") 'insert-todo-javascript-mode)
   )
-(add-hook 'java-mode-hook 'my-java-mode-config)
+(add-hook 'js-mode-hook 'my-javascript-mode-config)
 
 ;; Add TODO key binding for Python mode.
 (defun insert-todo-python-mode ()
@@ -132,7 +136,6 @@
   (local-set-key (kbd "C-t") 'insert-todo-html-mode)
   )
 (add-hook 'html-mode-hook 'my-html-mode-config)
-
 
 ;; Add TODO key binding for C++ mode.
 (defun insert-todo-c++-mode ()
