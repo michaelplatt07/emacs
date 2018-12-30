@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp php-mode batch-mode autopair flex-autopair))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp php-mode batch-mode autopair flex-autopair rjsx-mode smart-mode-line))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -20,6 +20,40 @@
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
+ '(custom-enabled-themes (quote (deeper-blue)))
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(global-hl-line-mode t)
+ '(global-hl-todo-mode t)
+ '(hl-todo-activate-in-modes
+   (quote
+    (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode batch-mode)))
+ '(ido-mode t nil (ido))
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(package-selected-packages
+   (quote
+    (batch-mode php-mode anything-tramp pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo)))
+ '(tabbar-mode t nil (tabbar)))
+
+;; Set up smart line mode
+(require 'smart-mode-line)
+(sml/setup)
+(setq sml/theme 'dark)
+(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookServer/*" ":RBServer:") t)
+(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookUi/*" ":RBUI_EJS:") t)
+(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/recipe-book-react/*" ":RBUI_React:") t)
+(smart-mode-line-enable t)
 
 ;; Setting global auto complete mode.
 (require 'auto-complete)
@@ -44,33 +78,12 @@
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 
 ;; Yapify to allow for formatting of Python Code to PEP standard.
 ;; Requires pip to be installed and yapf installed.
 ;;(require 'yapfify)
 ;;(add-hook 'python-mode-hook 'yapf-mode)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
- '(custom-enabled-themes (quote (deeper-blue)))
- '(global-hl-line-mode t)
- '(global-hl-todo-mode t)
- '(hl-todo-activate-in-modes
-   (quote
-    (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode batch-mode)))
- '(ido-mode t nil (ido))
- '(initial-frame-alist (quote ((fullscreen . maximized))))
- '(package-selected-packages
-   (quote
-    (batch-mode php-mode anything-tramp pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo)))
- '(tabbar-mode t nil (tabbar)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -200,11 +213,12 @@
         (setq tab-width 4)
         (setq python-indent 4)))
 
-
 ;; Some additional settings.
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(size-indication-mode 1)
 (delete-selection-mode 1)
+(setq org-log-done t)
 (setq scroll-step 1) ;;Scroll one line at a time
 (setq backup-directory-alist `(("." . "~/.saves")))
