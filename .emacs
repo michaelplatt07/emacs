@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp php-mode batch-mode autopair flex-autopair rjsx-mode smart-mode-line))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp php-mode batch-mode autopair flex-autopair rjsx-mode smart-mode-line flymd))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -50,9 +50,9 @@
 (require 'smart-mode-line)
 (sml/setup)
 (setq sml/theme 'dark)
-(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookServer/*" ":RBServer:") t)
-(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookUi/*" ":RBUI_EJS:") t)
-(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/recipe-book-react/*" ":RBUI_React:") t)
+(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookServer/*" ":RecipeServer:") t)
+(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookUi/*" ":RecipeEJS:") t)
+(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/recipe-book-react/*" ":RecipeReact:") t)
 (smart-mode-line-enable t)
 
 ;; Setting global auto complete mode.
