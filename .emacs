@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode anything-tramp php-mode batch-mode autopair flex-autopair rjsx-mode smart-mode-line flymd))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -38,12 +38,12 @@
  '(global-hl-todo-mode t)
  '(hl-todo-activate-in-modes
    (quote
-    (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode batch-mode)))
+    (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode)))
  '(ido-mode t nil (ido))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (batch-mode php-mode anything-tramp pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo)))
+    (php-mode pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo)))
  '(tabbar-mode t nil (tabbar)))
 
 ;; Set up smart line mode
@@ -74,7 +74,6 @@
 ;; Declaring some major modes for custom types of files.  More of a convenience than anything else.
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.bat\\'" . batch-mode))
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs\\'" . html-mode))
