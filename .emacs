@@ -26,25 +26,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-enabled-themes (quote (deeper-blue)))
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
- '(global-hl-line-mode t)
- '(global-hl-todo-mode t)
- '(hl-todo-activate-in-modes
-   (quote
-    (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode)))
- '(ido-mode t nil (ido))
- '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (php-mode pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo)))
- '(tabbar-mode t nil (tabbar)))
+    (php-mode anything-tramp pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo))))
 
 ;; Set up smart line mode
 (require 'smart-mode-line)
@@ -213,6 +201,7 @@
         (setq python-indent 4)))
 
 ;; Some additional settings.
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
