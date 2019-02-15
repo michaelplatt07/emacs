@@ -56,6 +56,7 @@
 (define-key modalka-mode-map (kbd "p") #'backward-paragraph)
 (define-key modalka-mode-map (kbd "P") #'previous-line)
 (define-key modalka-mode-map (kbd "q") 'ignore)
+(define-key modalka-mode-map (kbd "Q") 'save-buffers-kill-terminal)
 (define-key modalka-mode-map (kbd "r") 'query-replace)
 (define-key modalka-mode-map (kbd "R") 'ignore)
 (define-key modalka-mode-map (kbd "s") 'save-buffer)
