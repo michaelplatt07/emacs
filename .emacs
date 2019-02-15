@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -21,6 +21,49 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+;; Define modalka mode to make this a modal editor.
+(require 'modalka)
+(global-set-key (kbd "M-i") #'modalka-mode)
+(define-key modalka-mode-map (kbd "<home>") #'beginning-of-buffer)
+(define-key modalka-mode-map (kbd "<end>") #'end-of-buffer)
+(define-key modalka-mode-map (kbd "<prior>") #'scroll-down-command)
+(define-key modalka-mode-map (kbd "<next>") #'scroll-up-command)
+(define-key modalka-mode-map (kbd "n") #'forward-paragraph)
+(define-key modalka-mode-map (kbd "p") #'backward-paragraph)
+(define-key modalka-mode-map (kbd "N") #'next-line)
+(define-key modalka-mode-map (kbd "P") #'previous-line)
+(define-key modalka-mode-map (kbd "d") #'left-word)
+(define-key modalka-mode-map (kbd "f") #'right-word)
+(define-key modalka-mode-map (kbd "D") #'backward-char)
+(define-key modalka-mode-map (kbd "F") #'forward-char)
+(define-key modalka-mode-map (kbd "k") 'kill-this-buffer)
+(define-key modalka-mode-map (kbd "s") 'save-buffer)
+(define-key modalka-mode-map (kbd "S") 'shell)
+(define-key modalka-mode-map (kbd ".") 'next-buffer)
+(define-key modalka-mode-map (kbd ",") 'previous-buffer)
+(define-key modalka-mode-map (kbd "b") 'switch-to-buffer)
+(define-key modalka-mode-map (kbd "B") 'kill-region)
+(define-key modalka-mode-map (kbd "C") 'kill-ring-save)
+(define-key modalka-mode-map (kbd "V") 'yank)
+(define-key modalka-mode-map (kbd "z") 'undo)
+(define-key modalka-mode-map (kbd "l") 'goto-line)
+(define-key modalka-mode-map (kbd "O") 'custom-occur)
+(define-key modalka-mode-map (kbd "o") 'custom-open)
+(define-key modalka-mode-map (kbd "l") 'goto-line)
+(define-key modalka-mode-map (kbd "L") #'linum-mode)
+(define-key modalka-mode-map (kbd "i") 'isearch-forward)
+(define-key modalka-mode-map (kbd "M") 'set-mark-command)
+(define-key modalka-mode-map (kbd "m") 'set-mark-command)
+(define-key modalka-mode-map (kbd "r") 'query-replace)
+(define-key modalka-mode-map (kbd "K") 'kill-whole-line)
+(define-key modalka-mode-map (kbd "x") 'execute-extended-command)
+(define-key modalka-mode-map (kbd "0") 'delete-window)
+(define-key modalka-mode-map (kbd "1") 'delete-other-windows)
+(define-key modalka-mode-map (kbd "2") 'custom-split-vertical)
+(define-key modalka-mode-map (kbd "3") 'custom-split-horizontal)
+(define-key modalka-mode-map (kbd "<tab>") 'other-window)
+(define-key modalka-mode-map (kbd "g") 'keyboard-quit)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -38,7 +81,7 @@
  '(ido-mode t nil (ido))
  '(package-selected-packages
    (quote
-    (php-mode anything-tramp pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo))))
+    (modalka php-mode anything-tramp pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo))))
 
 ;; Set up smart line mode
 (require 'smart-mode-line)
@@ -84,6 +127,33 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; Custom Occur because I want to swap buffers so I can select it.
+(defun custom-occur ()
+  (interactive)
+  (call-interactively #'occur)
+  (other-window 1)
+  )
+
+;; Custom open window because I want to swap buffers when I split.
+(defun custom-split-horizontal ()
+  (interactive)
+  (call-interactively #'split-window-right)
+  (other-window 1)
+  )
+
+;; Custom open window because I want to swap buffers when I split.
+(defun custom-split-vertical ()
+  (interactive)
+  (call-interactively #'split-window-below)
+  (other-window 1)
+  )
+
+;; Custom open window because I want to swap buffers when I split.
+(defun custom-open ()
+  (interactive)
+  (call-interactively #'ido-find-file)
+  )
 
 ;; Sample function that shows how you could shell out if you wanted.
 (defun custom-function ()
@@ -177,7 +247,6 @@
      (define-key map (kbd "M-f") 'occur)
      (define-key map (kbd "C-l") 'goto-line)
      (define-key map (kbd "C-b") 'switch-to-buffer)
-     (define-key map (kbd "M-m") 'custom-function)
      (define-key map (kbd "C-c m") 'null)
      (define-key map (kbd "C-x z") 'null)
      (define-key map (kbd "C-x C-z") 'null)
@@ -213,6 +282,13 @@
 (menu-bar-mode -1)
 (size-indication-mode 1)
 (delete-selection-mode 1)
+
+;; Default enable Modalka mode
+(modalka-global-mode 1)
+
+(setq-default cursor-type 'box)
+(setq modalka-cursor-type '(bar . 1))
+(setq inhibit-startup-screen t)
 (setq org-log-done t)
 (setq scroll-step 1) ;;Scroll one line at a time
 (setq backup-directory-alist `(("." . "~/.saves")))
