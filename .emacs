@@ -23,58 +23,58 @@
 
 ;; Define modalka mode to make this a modal editor.
 (require 'modalka)
-(define-key modalka-mode-map (kbd "a") 'ignore)
-(define-key modalka-mode-map (kbd "A") 'ignore)
+(define-key modalka-mode-map (kbd "a") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "A") #'mark-whole-buffer)
 (define-key modalka-mode-map (kbd "b") 'switch-to-buffer)
 (define-key modalka-mode-map (kbd "B") 'list-buffers)
-(define-key modalka-mode-map (kbd "c") 'ignore)
+(define-key modalka-mode-map (kbd "c") 'ignore) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "C") 'kill-ring-save)
 (define-key modalka-mode-map (kbd "d") #'left-word)
 (define-key modalka-mode-map (kbd "D") #'backward-char)
-(define-key modalka-mode-map (kbd "e") 'ignore)
-(define-key modalka-mode-map (kbd "E") 'ignore)
+(define-key modalka-mode-map (kbd "e") #'move-end-of-line)
+(define-key modalka-mode-map (kbd "E") #'end-of-buffer)
 (define-key modalka-mode-map (kbd "f") #'right-word)
 (define-key modalka-mode-map (kbd "F") #'forward-char)
 (define-key modalka-mode-map (kbd "g") 'keyboard-quit)
-(define-key modalka-mode-map (kbd "G") 'ignore)
-(define-key modalka-mode-map (kbd "h") 'ignore)
-(define-key modalka-mode-map (kbd "H") 'ignore)
+(define-key modalka-mode-map (kbd "G") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "h") #'move-beginning-of-line)
+(define-key modalka-mode-map (kbd "H") #'beginning-of-buffer)
 (define-key modalka-mode-map (kbd "i") #'modalka-mode)
-(define-key modalka-mode-map (kbd "I") 'isearch-forward)
-(define-key modalka-mode-map (kbd "j") 'ignore)
-(define-key modalka-mode-map (kbd "J") 'ignore)
+(define-key modalka-mode-map (kbd "I") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "j") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "J") 'ignore) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "k") 'kill-this-buffer)
 (define-key modalka-mode-map (kbd "K") 'kill-whole-line)
-(define-key modalka-mode-map (kbd "l") 'ignore)
+(define-key modalka-mode-map (kbd "l") 'goto-line)
 (define-key modalka-mode-map (kbd "L") #'linum-mode)
 (define-key modalka-mode-map (kbd "m") 'set-mark-command)
-(define-key modalka-mode-map (kbd "M") 'set-mark-command)
+(define-key modalka-mode-map (kbd "M") 'flymd-flyit)
 (define-key modalka-mode-map (kbd "n") #'forward-paragraph)
 (define-key modalka-mode-map (kbd "N") #'next-line)
 (define-key modalka-mode-map (kbd "o") 'custom-open)
 (define-key modalka-mode-map (kbd "O") 'custom-occur)
 (define-key modalka-mode-map (kbd "p") #'backward-paragraph)
 (define-key modalka-mode-map (kbd "P") #'previous-line)
-(define-key modalka-mode-map (kbd "q") 'ignore)
+(define-key modalka-mode-map (kbd "q") 'ignore) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "Q") 'save-buffers-kill-terminal)
 (define-key modalka-mode-map (kbd "r") 'query-replace)
-(define-key modalka-mode-map (kbd "R") 'ignore)
+(define-key modalka-mode-map (kbd "R") 'ignore) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "s") 'save-buffer)
 (define-key modalka-mode-map (kbd "S") 'shell)
-(define-key modalka-mode-map (kbd "t") 'ignore)
-(define-key modalka-mode-map (kbd "T") 'ignore)
-(define-key modalka-mode-map (kbd "u") 'ignore)
-(define-key modalka-mode-map (kbd "U") 'ignore)
-(define-key modalka-mode-map (kbd "v") 'ignore)
+(define-key modalka-mode-map (kbd "t") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "T") #'toggle-frame-fullscreen)
+(define-key modalka-mode-map (kbd "u") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "U") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "v") 'ignore) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "V") 'yank)
-(define-key modalka-mode-map (kbd "w") 'ignore)
-(define-key modalka-mode-map (kbd "W") 'ignore)
+(define-key modalka-mode-map (kbd "w") 'isearch-forward)
+(define-key modalka-mode-map (kbd "W") 'isearch-forward)
 (define-key modalka-mode-map (kbd "x") 'execute-extended-command)
 (define-key modalka-mode-map (kbd "X") 'kill-region)
-(define-key modalka-mode-map (kbd "y") 'ignore)
-(define-key modalka-mode-map (kbd "Y") 'ignore)
+(define-key modalka-mode-map (kbd "y") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "Y") 'ignore) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "z") 'undo)
-(define-key modalka-mode-map (kbd "Z") 'ignore)
+(define-key modalka-mode-map (kbd "Z") 'ignore) ; NOTE(map) : Available
 
 (define-key modalka-mode-map (kbd ".") 'next-buffer)
 (define-key modalka-mode-map (kbd ",") 'previous-buffer)
@@ -182,16 +182,16 @@
 ;; Sample function that shows how you could shell out if you wanted.
 (defun custom-function ()
  	(interactive)
- 	(other-window 1)
+ 	(other-window 1)	
  	;; Switch to `*shell*'
  	(shell)
  	;; Goto last prompt, clear old input if any, and insert new one
  	(goto-char (point-max))
  	(comint-kill-input)
- 	(insert "cd /home/michael/Desktop/VideoGame/tloll")
+ 	(insert "SOME COMMAND HERE")
  	;; Execute
  	(comint-send-input)
- 	(insert "gradle build run")
+ 	(insert "SOME COMMAND HERE")
  	(comint-send-input)
  	(other-window 1)
  	)
