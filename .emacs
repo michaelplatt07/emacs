@@ -31,14 +31,14 @@
 (define-key modalka-mode-map (kbd "C") 'kill-ring-save)
 (define-key modalka-mode-map (kbd "d") #'left-word)
 (define-key modalka-mode-map (kbd "D") #'backward-char)
-(define-key modalka-mode-map (kbd "e") #'move-end-of-line)
-(define-key modalka-mode-map (kbd "E") #'end-of-buffer)
+(define-key modalka-mode-map (kbd "e") #'end-of-buffer)
+(define-key modalka-mode-map (kbd "E") #'move-end-of-line)
 (define-key modalka-mode-map (kbd "f") #'right-word)
 (define-key modalka-mode-map (kbd "F") #'forward-char)
 (define-key modalka-mode-map (kbd "g") 'keyboard-quit)
 (define-key modalka-mode-map (kbd "G") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "h") #'move-beginning-of-line)
-(define-key modalka-mode-map (kbd "H") #'beginning-of-buffer)
+(define-key modalka-mode-map (kbd "h") #'beginning-of-buffer)
+(define-key modalka-mode-map (kbd "H") #'move-beginning-of-line)
 (define-key modalka-mode-map (kbd "i") #'modalka-mode)
 (define-key modalka-mode-map (kbd "I") 'ignore) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "j") 'ignore) ; NOTE(map) : Available
@@ -76,8 +76,8 @@
 (define-key modalka-mode-map (kbd "z") 'undo)
 (define-key modalka-mode-map (kbd "Z") 'ignore) ; NOTE(map) : Available
 
-(define-key modalka-mode-map (kbd ".") 'next-buffer)
-(define-key modalka-mode-map (kbd ",") 'previous-buffer)
+(define-key modalka-mode-map (kbd ".") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd ",") 'ignore) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "0") 'delete-window)
 (define-key modalka-mode-map (kbd "1") 'delete-other-windows)
 (define-key modalka-mode-map (kbd "2") 'custom-split-vertical)
