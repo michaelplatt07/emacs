@@ -89,6 +89,26 @@
   (call-interactively #'ido-find-file)
   )
 
+(defun insert-grep-params (regex search-dir file-type)
+  (if (string-equal search-dir "")
+      (setq search-dir default-directory)
+    )
+  (kill-whole-line)
+  (insert (format "grep -rnw %s --include=\\\%s -e %s" search-dir file-type regex))  
+  )
+
+(defun custom-grep-function ()
+  (interactive)
+  (let (regex search-dir file-type)
+    (setq regex (read-string "Regex: "))
+    (setq search-dir (read-string "Directory to search (leave blank for current dir): "))
+    (setq file-type (read-string "File type to search: "))
+    (add-hook 'minibuffer-setup-hook (lambda () (insert-grep-params regex search-dir file-type)))
+    (execute-extended-command nil "grep")
+    (remove-hook 'minibuffer-setup-hook (lambda () (insert-grep-params regex search-dir file-type)))
+    )
+  )
+
 ;; Inserting custom templated docstrings for things we might need.
 (defun custom-insert-docs ()
   (interactive)
@@ -228,7 +248,7 @@
 (define-key modalka-mode-map (kbd "f") #'right-word)
 (define-key modalka-mode-map (kbd "F") #'forward-char)
 (define-key modalka-mode-map (kbd "g") 'keyboard-quit)
-(define-key modalka-mode-map (kbd "G") 'vc-diff) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "G") 'vc-diff)
 (define-key modalka-mode-map (kbd "h") #'beginning-of-buffer)
 (define-key modalka-mode-map (kbd "H") #'move-beginning-of-line)
 (define-key modalka-mode-map (kbd "i") #'modalka-mode)
@@ -256,7 +276,7 @@
 (define-key modalka-mode-map (kbd "t") 'custom-insert-todos)
 (define-key modalka-mode-map (kbd "T") #'toggle-frame-fullscreen)
 (define-key modalka-mode-map (kbd "u") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "U") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "U") 'custom-grep-function)
 (define-key modalka-mode-map (kbd "v") 'ignore) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "V") 'yank)
 (define-key modalka-mode-map (kbd "w") 'isearch-forward)
@@ -297,6 +317,7 @@
     (define-key map (kbd "C-p") 'backward-paragraph)
     (define-key map (kbd "C-/") nil)
     (define-key map (kbd "C-z") 'undo)
+    ;;(define-key map (kbd "C-g") 'custom-keyboard-quit)
     (define-key map (kbd "M-b") 'kill-region)
     (define-key map (kbd "M-c") 'kill-ring-save)
     (define-key map (kbd "M-v") 'yank)
