@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka csharp-mode))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -21,73 +21,21 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+;; Handling requires
+(require 'smart-mode-line)
+(require 'auto-complete)
+(require 'autopair)
+(require `highlight-parentheses)
+
 ;; Define modalka mode to make this a modal editor.
 (require 'modalka)
-(define-key modalka-mode-map (kbd "a") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "A") #'mark-whole-buffer)
-(define-key modalka-mode-map (kbd "b") 'switch-to-buffer)
-(define-key modalka-mode-map (kbd "B") 'list-buffers)
-(define-key modalka-mode-map (kbd "c") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "C") 'kill-ring-save)
-(define-key modalka-mode-map (kbd "d") #'left-word)
-(define-key modalka-mode-map (kbd "D") #'backward-char)
-(define-key modalka-mode-map (kbd "e") #'end-of-buffer)
-(define-key modalka-mode-map (kbd "E") #'move-end-of-line)
-(define-key modalka-mode-map (kbd "f") #'right-word)
-(define-key modalka-mode-map (kbd "F") #'forward-char)
-(define-key modalka-mode-map (kbd "g") 'keyboard-quit)
-(define-key modalka-mode-map (kbd "G") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "h") #'beginning-of-buffer)
-(define-key modalka-mode-map (kbd "H") #'move-beginning-of-line)
-(define-key modalka-mode-map (kbd "i") #'modalka-mode)
-(define-key modalka-mode-map (kbd "I") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "j") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "J") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "k") 'kill-this-buffer)
-(define-key modalka-mode-map (kbd "K") 'kill-whole-line)
-(define-key modalka-mode-map (kbd "l") 'goto-line)
-(define-key modalka-mode-map (kbd "L") #'linum-mode)
-(define-key modalka-mode-map (kbd "m") 'set-mark-command)
-(define-key modalka-mode-map (kbd "M") 'flymd-flyit)
-(define-key modalka-mode-map (kbd "n") #'forward-paragraph)
-(define-key modalka-mode-map (kbd "N") #'next-line)
-(define-key modalka-mode-map (kbd "o") 'custom-open)
-(define-key modalka-mode-map (kbd "O") 'custom-occur)
-(define-key modalka-mode-map (kbd "p") #'backward-paragraph)
-(define-key modalka-mode-map (kbd "P") #'previous-line)
-(define-key modalka-mode-map (kbd "q") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "Q") 'save-buffers-kill-terminal)
-(define-key modalka-mode-map (kbd "r") 'query-replace)
-(define-key modalka-mode-map (kbd "R") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "s") 'save-buffer)
-(define-key modalka-mode-map (kbd "S") 'shell)
-(define-key modalka-mode-map (kbd "t") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "T") #'toggle-frame-fullscreen)
-(define-key modalka-mode-map (kbd "u") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "U") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "v") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "V") 'yank)
-(define-key modalka-mode-map (kbd "w") 'isearch-forward)
-(define-key modalka-mode-map (kbd "W") 'isearch-forward)
-(define-key modalka-mode-map (kbd "x") 'execute-extended-command)
-(define-key modalka-mode-map (kbd "X") 'kill-region)
-(define-key modalka-mode-map (kbd "y") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "Y") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "z") 'undo)
-(define-key modalka-mode-map (kbd "Z") 'ignore) ; NOTE(map) : Available
 
-(define-key modalka-mode-map (kbd ".") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd ",") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "0") 'delete-window)
-(define-key modalka-mode-map (kbd "1") 'delete-other-windows)
-(define-key modalka-mode-map (kbd "2") 'custom-split-vertical)
-(define-key modalka-mode-map (kbd "3") 'custom-split-horizontal)
-(define-key modalka-mode-map (kbd "<tab>") 'other-window)
-(define-key modalka-mode-map (kbd "<home>") #'beginning-of-buffer)
-(define-key modalka-mode-map (kbd "<end>") #'end-of-buffer)
-(define-key modalka-mode-map (kbd "<prior>") #'scroll-down-command)
-(define-key modalka-mode-map (kbd "<next>") #'scroll-up-command)
+(add-to-list 'load-path "~/.emacs.d/templates/")
+(load "my-templates")
+(load "todo-templates")
+(load "comment-block-templates")
 
+;; Color theming.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -101,49 +49,11 @@
  '(global-hl-todo-mode t)
  '(hl-todo-activate-in-modes
    (quote
-    (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode)))
+    (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode ruby-mode html-mode)))
  '(ido-mode t nil (ido))
  '(package-selected-packages
    (quote
     (modalka php-mode anything-tramp pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo))))
-
-;; Set up smart line mode
-(require 'smart-mode-line)
-(sml/setup)
-(setq sml/theme 'dark)
-(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookServer/*" ":RecipeServer:") t)
-(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookUi/*" ":RecipeEJS:") t)
-(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/recipe-book-react/*" ":RecipeReact:") t)
-(smart-mode-line-enable t)
-
-;; Setting global auto complete mode.
-(require 'auto-complete)
-(global-auto-complete-mode t)
-
-;; Setting global flex autopair mode.
-;; (require 'flex-autopair)
-;; (flex-autopair-mode 1)
-
-;; Using autopair because it deletes things nicely.
-(require 'autopair)
-(autopair-global-mode 1)
-
-;; Setting global parentheses highlight mode.
-(require `highlight-parentheses)
-(global-highlight-parentheses-mode t)
-
-;; Declaring some major modes for custom types of files.  More of a convenience than anything else.
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . javascript-mode))
-(add-to-list 'auto-mode-alist '("\\.hbs\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.ejs\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
-
-;; Yapify to allow for formatting of Python Code to PEP standard.
-;; Requires pip to be installed and yapf installed.
-;;(require 'yapfify)
-;;(add-hook 'python-mode-hook 'yapf-mode)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -179,110 +89,231 @@
   (call-interactively #'ido-find-file)
   )
 
-;; Sample function that shows how you could shell out if you wanted.
-(defun custom-function ()
- 	(interactive)
- 	(other-window 1)	
- 	;; Switch to `*shell*'
- 	(shell)
- 	;; Goto last prompt, clear old input if any, and insert new one
- 	(goto-char (point-max))
- 	(comint-kill-input)
- 	(insert "SOME COMMAND HERE")
- 	;; Execute
- 	(comint-send-input)
- 	(insert "SOME COMMAND HERE")
- 	(comint-send-input)
- 	(other-window 1)
- 	)
-
-;; Add TODO key binding for Java mode.
-(defun insert-todo-java-mode ()
+;; Inserting custom templated docstrings for things we might need.
+(defun custom-insert-docs ()
   (interactive)
-  (insert "// TODO(map) : ")
+  (let (doc_type)
+    (setq doc_type (read-string "Enter Doc Type:"))
+    (if (string-equal doc_type "swagger")
+	(if (string-equal major-mode "rjsx-mode")
+	    (get-javascript-swagger)
+	  )
+      )
+    (when (string-equal doc_type "doc")
+      (if (string-equal major-mode "java-mode")
+	  (get-java-doc)
+	)
+      (if (string-equal major-mode "python-mode")
+	(get-python-doc)
+	)
+      )
+    )
   )
-(defun my-java-mode-config ()
-  "For use in `html-mode-hook'."
-  (local-set-key (kbd "C-t") 'insert-todo-java-mode)
-  )
-(add-hook 'java-mode-hook 'my-java-mode-config)
 
-;; Add TODO key binding for JavaScript mode.
-(defun insert-todo-javascript-mode ()
+;; Setting up TODO insert calls.
+(defun custom-insert-todos ()
   (interactive)
-  (insert "// TODO(map) : ")
+  (print major-mode)
+  (if (string-equal major-mode "java-mode")
+      (insert-java-todo)
+    )
+  (if (string-equal major-mode "js-mode")
+      (insert-javascript-todo)
+    )
+  (if (string-equal major-mode "rjsx-mode")
+      (insert-javascript-todo)
+    )
+  (if (string-equal major-mode "python-mode")
+      (insert-python-todo)
+    )
+  (if (string-equal major-mode "c++-mode")
+      (insert-cpp-todo)
+    )
+  (if (string-equal major-mode "csharp-mode")
+      (insert-csharp-todo)
+    )
+  (if (string-equal major-mode "html-mode")
+      (insert-html-todo)
+    )
+  (if (string-equal major-mode "php-mode")
+      (insert-php-todo)
+    )
+  (if (string-equal major-mode "ruby-mode")
+      (insert-ruby-todo)
+    )
   )
-(defun my-javascript-mode-config ()
-  (local-set-key (kbd "C-t") 'insert-todo-javascript-mode)
-  )
-(add-hook 'js-mode-hook 'my-javascript-mode-config)
 
-;; Add TODO key binding for Python mode.
-(defun insert-todo-python-mode ()
+(defun custom-insert-comment-block ()
   (interactive)
-  (insert "# TODO(map) : ")
+  (if (string-equal major-mode "java-mode")
+      (insert-java-comment-block)
+    )
+  (if (string-equal major-mode "js-mode")
+      (insert-javascript-comment-block)
+    )
+  (if (string-equal major-mode "rjsx-mode")
+      (insert-javascript-comment-block)
+    )
+  (if (string-equal major-mode "python-mode")
+      (insert-python-comment-block)
+    )
+  (if (string-equal major-mode "c++-mode")
+      (insert-cpp-comment-block)
+    )
+  (if (string-equal major-mode "csharp-mode")
+      (insert-csharp-comment-block)
+    )
+  (if (string-equal major-mode "html-mode")
+      (insert-html-comment-block)
+    )
+  (if (string-equal major-mode "php-mode")
+      (insert-php-comment-block)
+    )
+  (if (string-equal major-mode "ruby-mode")
+      (insert-ruby-comment-block)
+    )
   )
-(defun my-python-mode-config ()
-  (local-set-key (kbd "C-t") 'insert-todo-python-mode)
-  )
-(add-hook 'python-mode-hook 'my-python-mode-config)
 
-;; Add TODO key binding for HTML mode.
-(defun insert-todo-html-mode ()
-  (interactive)
-  (insert "<!-- TODO(map) : -->")
-  )
-(defun my-html-mode-config ()
-  (local-set-key (kbd "C-t") 'insert-todo-html-mode)
-  )
-(add-hook 'html-mode-hook 'my-html-mode-config)
+;; Setting up auto insert for various filex.
+(eval-after-load 'autoinsert
+  '(define-auto-insert
+     '("\\.java\\'" . "Java Skeleton")
+     '((file-name-base (buffer-file-name))
+       "/**" > \n
+       "* @author: MAPlatt" > \n
+       "* @date: " (format-time-string "%Y-%m-%d") > \n
+       "* @license: " > \n
+       "*/" > \n \n \n)))
+(eval-after-load 'autoinsert
+  '(define-auto-insert
+     '("\\.py\\'" . "Python Skeleton")
+     '(
+       (file-name-nondirectory (buffer-file-name))
+       "# @author: MAPlatt" > \n
+       "# @date: " (format-time-string "%Y-%m-%d") > \n
+       "# @license: " > \n \n \n)))
+(eval-after-load 'autoinsert
+  '(define-auto-insert
+     '("\\.js\\'" . "JavaScript Skeleton")
+     '(
+       (file-name-nondirectory (buffer-file-name))
+       "/**" > \n
+       "* @author: MAPlatt" > \n
+       "* @date: " (format-time-string "%Y-%m-%d") > \n
+       "* @license: " > \n
+       "*/" > \n \n \n)))
+(eval-after-load 'autoinsert
+  '(define-auto-insert
+     '("\\.\\(CC?\\|cc\\|cxx\\|cpp\\|c++\\)\\'" . "C++ skeleton")
+     '((file-name-nondirectory (buffer-file-name))
+       "/**" \n
+       "* @author: MAPlatt" > \n
+       "* @date: " (format-time-string "%Y-%m-%d") > \n
+       "* @license: " > \n
+       " */" > \n \n
+       "#include <iostream>" \n \n
+       "using namespace std;" \n \n \n)))
 
-;; Add TODO key binding for C++ mode.
-(defun insert-todo-c++-mode ()
-  (interactive)
-  (insert "// TODO(map) : ")
-  )
-(defun my-c++-mode-config ()
-  (local-set-key (kbd "C-t") 'insert-todo-c++-mode)
-  )
-(add-hook 'c++-mode-hook 'my-c++-mode-config)
+;; Modal key bindings
+(define-key modalka-mode-map (kbd "a") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "A") #'mark-whole-buffer)
+(define-key modalka-mode-map (kbd "b") 'switch-to-buffer)
+(define-key modalka-mode-map (kbd "B") 'list-buffers)
+(define-key modalka-mode-map (kbd "c") 'custom-insert-comment-block)
+(define-key modalka-mode-map (kbd "C") 'kill-ring-save)
+(define-key modalka-mode-map (kbd "d") #'left-word)
+(define-key modalka-mode-map (kbd "D") #'backward-char)
+(define-key modalka-mode-map (kbd "e") #'end-of-buffer)
+(define-key modalka-mode-map (kbd "E") #'move-end-of-line)
+(define-key modalka-mode-map (kbd "f") #'right-word)
+(define-key modalka-mode-map (kbd "F") #'forward-char)
+(define-key modalka-mode-map (kbd "g") 'keyboard-quit)
+(define-key modalka-mode-map (kbd "G") 'vc-diff) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "h") #'beginning-of-buffer)
+(define-key modalka-mode-map (kbd "H") #'move-beginning-of-line)
+(define-key modalka-mode-map (kbd "i") #'modalka-mode)
+(define-key modalka-mode-map (kbd "I") 'custom-insert-docs)
+(define-key modalka-mode-map (kbd "j") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "J") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "k") 'kill-this-buffer)
+(define-key modalka-mode-map (kbd "K") 'kill-whole-line)
+(define-key modalka-mode-map (kbd "l") 'goto-line)
+(define-key modalka-mode-map (kbd "L") #'linum-mode)
+(define-key modalka-mode-map (kbd "m") 'set-mark-command)
+(define-key modalka-mode-map (kbd "M") 'flymd-flyit)
+(define-key modalka-mode-map (kbd "n") #'forward-paragraph)
+(define-key modalka-mode-map (kbd "N") #'next-line)
+(define-key modalka-mode-map (kbd "o") 'custom-open)
+(define-key modalka-mode-map (kbd "O") 'ignore)
+(define-key modalka-mode-map (kbd "p") #'backward-paragraph)
+(define-key modalka-mode-map (kbd "P") #'previous-line)
+(define-key modalka-mode-map (kbd "q") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "Q") 'save-buffers-kill-terminal)
+(define-key modalka-mode-map (kbd "r") 'query-replace)
+(define-key modalka-mode-map (kbd "R") 'revert-buffer)
+(define-key modalka-mode-map (kbd "s") 'save-buffer)
+(define-key modalka-mode-map (kbd "S") 'shell)
+(define-key modalka-mode-map (kbd "t") 'custom-insert-todos)
+(define-key modalka-mode-map (kbd "T") #'toggle-frame-fullscreen)
+(define-key modalka-mode-map (kbd "u") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "U") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "v") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "V") 'yank)
+(define-key modalka-mode-map (kbd "w") 'isearch-forward)
+(define-key modalka-mode-map (kbd "W") 'custom-occur)
+(define-key modalka-mode-map (kbd "x") 'execute-extended-command)
+(define-key modalka-mode-map (kbd "X") 'kill-region)
+(define-key modalka-mode-map (kbd "y") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "Y") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "z") 'undo)
+(define-key modalka-mode-map (kbd "Z") 'ignore) ; NOTE(map) : Available
 
-;; Creating the key map the minor mode will use.
+(define-key modalka-mode-map (kbd ".") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd ",") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "0") 'delete-window)
+(define-key modalka-mode-map (kbd "1") 'delete-other-windows)
+(define-key modalka-mode-map (kbd "2") 'custom-split-vertical)
+(define-key modalka-mode-map (kbd "3") 'custom-split-horizontal)
+(define-key modalka-mode-map (kbd "<tab>") 'other-window)
+(define-key modalka-mode-map (kbd "<home>") #'beginning-of-buffer)
+(define-key modalka-mode-map (kbd "<end>") #'end-of-buffer)
+(define-key modalka-mode-map (kbd "<prior>") #'scroll-down-command)
+(define-key modalka-mode-map (kbd "<next>") #'scroll-up-command)
+
+;; Custom editing keybindings.
 (defvar my-keys-minor-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "<C-tab>") 'other-window)
-     (define-key map (kbd "C-k") 'kill-this-buffer)
-     (define-key map (kbd "C-.") 'next-buffer)
-     (define-key map (kbd "C-,") 'previous-buffer)
-     (define-key map (kbd "C-M-f") 'forward-char)
-     (define-key map (kbd "C-M-d") 'backward-char)
-     (define-key map (kbd "C-f") 'right-word)
-     (define-key map (kbd "C-d") 'left-word)
-     (define-key map (kbd "C-M-n") 'next-line)
-     (define-key map (kbd "C-M-p") 'previous-line)
-     (define-key map (kbd "C-n") 'forward-paragraph)
-     (define-key map (kbd "C-p") 'backward-paragraph)
-     (define-key map (kbd "C-/") nil)
-     (define-key map (kbd "C-z") 'undo)
-     (define-key map (kbd "M-b") 'kill-region)
-     (define-key map (kbd "M-c") 'kill-ring-save)
-     (define-key map (kbd "M-v") 'yank)
-     (define-key map (kbd "M-l") 'goto-line)
-     (define-key map (kbd "M-f") 'occur)
-     (define-key map (kbd "C-l") 'goto-line)
-     (define-key map (kbd "C-b") 'switch-to-buffer)
-     (define-key map (kbd "C-c m") 'null)
-     (define-key map (kbd "C-x z") 'null)
-     (define-key map (kbd "C-x C-z") 'null)
-     (define-key map (kbd "C-r") 'query-replace)
-     (define-key map (kbd "C-SPC") 'auto-complete)
-     (define-key map (kbd "M-d") 'diff)
-     (define-key map (kbd "C-j") 'javadoc-lookup)
-     (define-key map (kbd "M-j") 'javadoc-sort-imports)
-     (define-key map (kbd "M-r") 'revert-buffer)
-     (define-key map (kbd "M-i") #'modalka-mode)
-     map)
-    "my-keys-minor-mode keymap.")
+    (define-key map (kbd "C-k") 'kill-this-buffer)
+    (define-key map (kbd "C-.") 'next-buffer)
+    (define-key map (kbd "C-,") 'previous-buffer)
+    (define-key map (kbd "C-M-f") 'forward-char)
+    (define-key map (kbd "C-M-d") 'backward-char)
+    (define-key map (kbd "C-f") 'right-word)
+    (define-key map (kbd "C-d") 'left-word)
+    (define-key map (kbd "C-M-n") 'next-line)
+    (define-key map (kbd "C-M-p") 'previous-line)
+    (define-key map (kbd "C-n") 'forward-paragraph)
+    (define-key map (kbd "C-p") 'backward-paragraph)
+    (define-key map (kbd "C-/") nil)
+    (define-key map (kbd "C-z") 'undo)
+    (define-key map (kbd "M-b") 'kill-region)
+    (define-key map (kbd "M-c") 'kill-ring-save)
+    (define-key map (kbd "M-v") 'yank)
+    (define-key map (kbd "M-l") 'goto-line)
+    (define-key map (kbd "M-f") 'occur)
+    (define-key map (kbd "C-l") 'goto-line)
+    (define-key map (kbd "C-b") 'switch-to-buffer)
+    (define-key map (kbd "C-c m") 'null)
+    (define-key map (kbd "C-x z") 'null)
+    (define-key map (kbd "C-x C-z") 'null)
+    (define-key map (kbd "C-r") 'query-replace)
+    (define-key map (kbd "C-SPC") 'auto-complete)
+    (define-key map (kbd "M-d") 'diff)
+    (define-key map (kbd "M-r") 'revert-buffer)
+    (define-key map (kbd "M-i") #'modalka-mode)
+    map)
+  "my-keys-minor-mode keymap.")
 
 ;; Defining the key mode.
 (define-minor-mode my-keys-minor-mode
@@ -290,15 +321,45 @@
   :init-value t
   :lighter " my-keys")
 
+;; Set up smart line mode
+(sml/setup)
+(setq sml/theme 'dark)
+(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookServer/*" ":RecipeServer:") t)
+(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookUi/*" ":RecipeEJS:") t)
+(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/recipe-book-react/*" ":RecipeReact:") t)
+(smart-mode-line-enable t)
+
+;; Setting global auto complete mode.
+(global-auto-complete-mode t)
+
+;; Using autopair because it deletes things nicely.
+(autopair-global-mode 1)
+
+;; Setting global parentheses highlight mode.
+(global-highlight-parentheses-mode t)
+
+;; Declaring some major modes for custom types of files.  More of a convenience than anything else.
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.hbs\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.ejs\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
+(add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-mode))
+
+
+;; NOTE(map) : Configuration settings
 ;; Enabling key mode.
 (my-keys-minor-mode 1)
 
-;; Set python files to use 4 spaces instead of tabs.
-(add-hook 'python-mode-hook
-      (lambda ()
-        (setq indent-tabs-mode nil)
-        (setq tab-width 4)
-        (setq python-indent 4)))
+;; Setting global auto complete mode.
+(global-auto-complete-mode t)
+
+;; Using autopair because it deletes things nicely.
+(autopair-global-mode 1)
+
+;; Setting global parentheses highlight mode.
+(global-highlight-parentheses-mode t)
 
 ;; Some additional settings.
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -308,6 +369,7 @@
 (size-indication-mode 1)
 (delete-selection-mode 1)
 
+(auto-insert-mode t)
 ;; Default enable Modalka mode
 (modalka-global-mode 1)
 
@@ -317,3 +379,4 @@
 (setq org-log-done t)
 (setq scroll-step 1) ;;Scroll one line at a time
 (setq backup-directory-alist `(("." . "~/.saves")))
+;; NOTE(map) : END configurations
