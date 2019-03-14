@@ -233,6 +233,10 @@
        " */" > \n \n
        "#include <iostream>" \n \n
        "using namespace std;" \n \n \n)))
+(eval-after-load 'autoinsert
+  '(define-auto-insert
+     '("\\.org\\'" . "Org Mode skeleton")
+     'get-org-skeleton))
 
 ;; Modal key bindings
 (define-key modalka-mode-map (kbd "a") 'ignore) ; NOTE(map) : Available
@@ -317,7 +321,6 @@
     (define-key map (kbd "C-p") 'backward-paragraph)
     (define-key map (kbd "C-/") nil)
     (define-key map (kbd "C-z") 'undo)
-    ;;(define-key map (kbd "C-g") 'custom-keyboard-quit)
     (define-key map (kbd "M-b") 'kill-region)
     (define-key map (kbd "M-c") 'kill-ring-save)
     (define-key map (kbd "M-v") 'yank)
