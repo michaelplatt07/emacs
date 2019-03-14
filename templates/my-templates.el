@@ -98,5 +98,37 @@
   (javascript-swagger-skeleton)
   )
 
+(define-skeleton org-skeleton
+  "Inserts an Org Mode template for a project."
+  nil
+  "----------------------------------" (make-string (length (setq project-name (skeleton-read "Project Name: "))) ?-) "-\n"
+  "- Org File for Organizing Tasks " project-name "  -\n"
+  "----------------------------------" (make-string (length project-name) ?-) "-\n"
+  "\n"
+  "----------------\n"
+  "-   Features   -\n"
+  "----------------\n"
+  "\n"
+  "----------------\n"
+  "- Enhancements -\n"
+  "----------------\n"
+  "\n"
+  "----------------\n"
+  "-  Bug Report  -\n"
+  "----------------\n"
+  "\n"
+  "----------------\n"
+  "-    UI/UX     -\n"
+  "----------------\n"
+  "\n"
+  "----------------\n"
+  "-   Research   -\n" 
+  "----------------\n"
+  )
+
+(defun get-org-skeleton ()
+  (org-skeleton)
+  )
+
 (provide 'my-templates)
 ;;; my-templates.el ends here
