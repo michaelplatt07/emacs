@@ -161,7 +161,9 @@
   (if (string-equal major-mode "ruby-mode")
       (insert-ruby-todo)
     )
-  )
+  (if (string-equal major-mode "org-mode")
+      (insert-org-todo)
+    ))
 
 (defun custom-insert-comment-block ()
   (interactive)
