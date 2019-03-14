@@ -104,5 +104,15 @@
   (ruby-todo-skeleton)
   )
 
+;; Add TODO key binding for Org mode.
+(define-skeleton org-todo-skeleton
+  "Inserts a TODO for a Org file."
+  nil
+  "* TODO " (setq description (skeleton-read "Description: ")) " [[][]]"
+  )
+(defun insert-org-todo ()
+  (org-todo-skeleton)
+  )
+
 (provide 'todo-templates)
 ;;; todo-templates.el ends here
