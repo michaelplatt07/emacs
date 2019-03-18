@@ -89,6 +89,12 @@
   (call-interactively #'ido-find-file)
   )
 
+;; Custom comment a line because apparently emacs 24 doesn't have the nice (comment-line) command.
+(defun custom-comment-line ()
+  (interactive)
+  (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+  )
+
 (defun insert-grep-params (regex search-dir file-type)
   (if (string-equal search-dir "")
       (setq search-dir default-directory)
@@ -300,6 +306,7 @@
 (define-key modalka-mode-map (kbd "1") 'delete-other-windows)
 (define-key modalka-mode-map (kbd "2") 'custom-split-vertical)
 (define-key modalka-mode-map (kbd "3") 'custom-split-horizontal)
+(define-key modalka-mode-map (kbd "/") 'custom-comment-line)
 (define-key modalka-mode-map (kbd "<tab>") 'other-window)
 (define-key modalka-mode-map (kbd "<home>") #'beginning-of-buffer)
 (define-key modalka-mode-map (kbd "<end>") #'end-of-buffer)
