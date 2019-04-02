@@ -108,11 +108,15 @@
 (define-skeleton org-todo-skeleton
   "Inserts a TODO for a Org file."
   nil
-  "* TODO " (setq description (skeleton-read "Description: ")) " [[][]]"
+  "* TODO " (setq description (skeleton-read "Short Description: ")) " [[][]]"
+  "" \n
+  "" (setq description (skeleton-read "Long Description: ")) ""
+  "" \n
   )
 (defun insert-org-todo ()
   (org-todo-skeleton)
   )
+
 
 (provide 'todo-templates)
 ;;; todo-templates.el ends here
