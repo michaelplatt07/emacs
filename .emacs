@@ -49,7 +49,7 @@
  '(global-hl-todo-mode t)
  '(hl-todo-activate-in-modes
    (quote
-    (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode ruby-mode html-mode)))
+    (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode ruby-mode html-mode css-mode)))
  '(ido-mode t nil (ido))
  '(package-selected-packages
    (quote
