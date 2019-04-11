@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka csharp-mode))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka csharp-mode stickyfunc-enhance))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -26,6 +26,7 @@
 (require 'auto-complete)
 (require 'autopair)
 (require `highlight-parentheses)
+(require 'stickyfunc-enhance)
 
 ;; Define modalka mode to make this a modal editor.
 (require 'modalka)
@@ -401,6 +402,10 @@
 (menu-bar-mode -1)
 (size-indication-mode 1)
 (delete-selection-mode 1)
+
+;; Adding sticky-func enahnce so I can see what method I'm in in long methods.
+(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+(semantic-mode 1)
 
 (auto-insert-mode t)
 ;; Default enable Modalka mode
