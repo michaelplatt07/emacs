@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka csharp-mode))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka csharp-mode ido-vertical-mode indent-mode))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -27,6 +27,7 @@
 (require 'autopair)
 (require `highlight-parentheses)
 (require 'ido-vertical-mode)
+(require 'indent-guide)
 
 ;; Define modalka mode to make this a modal editor.
 (require 'modalka)
@@ -403,6 +404,7 @@
 (size-indication-mode 1)
 (delete-selection-mode 1)
 (ido-vertical-mode 1)
+(indent-guide-global-mode)
 
 (auto-insert-mode t)
 ;; Default enable Modalka mode
