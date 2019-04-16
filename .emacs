@@ -26,6 +26,7 @@
 (require 'auto-complete)
 (require 'autopair)
 (require `highlight-parentheses)
+(require 'ido-vertical-mode)
 
 ;; Define modalka mode to make this a modal editor.
 (require 'modalka)
@@ -401,6 +402,7 @@
 (menu-bar-mode -1)
 (size-indication-mode 1)
 (delete-selection-mode 1)
+(ido-vertical-mode 1)
 
 (auto-insert-mode t)
 ;; Default enable Modalka mode
