@@ -406,6 +406,9 @@
 (ido-vertical-mode 1)
 (indent-guide-global-mode)
 
+(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+(semantic-mode 1)
+
 (auto-insert-mode t)
 ;; Default enable Modalka mode
 (modalka-global-mode 1)
