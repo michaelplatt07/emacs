@@ -413,6 +413,8 @@
 ;; Default enable Modalka mode
 (modalka-global-mode 1)
 
+(split-screen-horizontally)
+
 (setq-default cursor-type 'box)
 (setq modalka-cursor-type '(bar . 1))
 (setq inhibit-startup-screen t)
