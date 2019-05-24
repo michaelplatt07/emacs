@@ -64,6 +64,29 @@
  ;; If there is more than one, they won't work right.
  )
 
+
+;; Test comment for testing.
+(defun custom-test ()
+  (interactive)
+  (setq test-line (substring (thing-at-point 'line 1) 0 2))
+  (setq test-line-2 "")
+  
+  (print (length test-line-2))
+  (print (< (length test-line-2) 60))
+  (print (< 0 60))
+  (print (> (length (thing-at-point 'line 1))))
+  (if (string= test-line ";;")
+      (when (> (length (thing-at-point 'line 1)) 60)
+	(while (< (length test-line-2) 60)
+	  (forward-word)
+	  (setq test-line-2 (substring (thing-at-point 'line 1) 0 (current-column)))
+	  (print (substring (thing-at-point 'line 1) 0 (current-column)))
+	  )
+	)
+    )
+  )
+
+
 ;; Custom Occur because I want to swap buffers so I can select it.
 (defun custom-occur ()
   (interactive)
