@@ -1,41 +1,32 @@
-;; If you are experiencing a package not found error then you need to run the command package-refresh-contents
+;; If you are experiencing a package not found error then 
+;; you
+;; need to run the command package-refresh-contents
 
-;; Setting up the list of packages that will be automatically installed.
-;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka csharp-mode ido-vertical-mode indent-mode))
+;; Setting up the list of packages that will be 
+;; automatically installed.
+;; Add any new desired packages to this list.  They are 
+;; white space delimitted.
+;; (setq package-list '(hl-todo tabbar highlight-
+;; parentheses json-mode json-reformat pug-mode php-mode 
+;; autopair flex-autopair rjsx-mode smart-mode-line flymd 
+;; modalka csharp-mode))
 
-;; Adding the melpa package archive for melpa packages.
-;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-(setq package-enable-at-startup nil)
-(package-initialize)
-
-;; Refresh the list of packages.
-(unless package-archive-contents
-  (package-refresh-contents))
-
-;; Loop over the list of packages desired for installing and if they aren't
+;; Loop over the list of packages desired for installing 
+;; and if they aren't
 ;; installed go ahead and install them.
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
-
-;; Handling requires
-(require 'smart-mode-line)
-(require 'auto-complete)
-(require 'autopair)
-(require `highlight-parentheses)
-(require 'ido-vertical-mode)
-(require 'indent-guide)
-
-;; Define modalka mode to make this a modal editor.
-(require 'modalka)
-
-(add-to-list 'load-path "~/.emacs.d/templates/")
+(add-to-list 'load-path "~/.emacs.d/elpa/")
+(load "hl-todo")
+(load "modalka")
+(load "highlight-parentheses")
+(load "tabbar")
+(load "autopair")
+(load "smart-mode-line")
+(load "comment-block-templates")
 (load "my-templates")
 (load "todo-templates")
-(load "comment-block-templates")
+(load "stickyfunc-enhance")
+(load "ido-vertical-mode")
+(load "indent-guide")
 
 ;; Color theming.
 (custom-set-variables
@@ -53,10 +44,12 @@
    (quote
     (java-mode emacs-lisp-mode python-mode c++-mode javascript-mode js-mode ruby-mode html-mode css-mode)))
  '(ido-mode t nil (ido))
+ 
  '(package-selected-packages
    (quote
-    (modalka php-mode anything-tramp pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo))))
-
+    (modalka php-mode anything-tramp pug-mode json-mode highlight-parentheses tabbar auto-complete hl-todo)))
+ )
+	
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -64,68 +57,89 @@
  ;; If there is more than one, they won't work right.
  )
 
-
 ;; Test comment for testing.
+;; TODO(map) : This needs to be modified to care about the 
+;; major mode that is being used so we know what comments 
+;; to look for.
 (defun custom-test ()
   (interactive)
-  (setq test-line (substring (thing-at-point 'line 1) 0 2))
-  (setq test-line-2 "")
-  
-  (print (length test-line-2))
-  (print (< (length test-line-2) 60))
-  (print (< 0 60))
-  (print (> (length (thing-at-point 'line 1))))
-  (if (string= test-line ";;")
-      (when (> (length (thing-at-point 'line 1)) 60)
-	(while (< (length test-line-2) 60)
-	  (forward-word)
-	  (setq test-line-2 (substring (thing-at-point 'line 1) 0 (current-column)))
-	  (print (substring (thing-at-point 'line 1) 0 (current-column)))
+  (setq test-line (thing-at-point 'line 1))
+  (when (> (length test-line) 2)
+    (setq test-line-2 (substring (thing-at-point 'line 1) 0 2))
+    
+    (if (string= test-line-2 ";;")
+	(when (> (length (thing-at-point 'line 1)) 60)
+	  (while (< (current-column) 60)
+	    (forward-word)
+	    )
+	  (backward-word)
+	  (newline)
+	  (insert ";; ")
+	  (custom-test)
 	  )
-	)
+      )
     )
   )
+    
+(defun custom-test-2 ()
+  (interactive)
+  (goto-char (point-min))
+  (while (not (eobp))
+    (setq test-line (thing-at-point 'line 1))
+    (when (> (length test-line) 2)
+      (custom-test)
+      )
+    (forward-line 1))
+  )
 
-
-;; Custom Occur because I want to swap buffers so I can select it.
+;; (add-hook 'before-save-hook #'custom-test-2)
+    
+;; Custom Occur because I want to swap buffers so I can 
+;; select it.
 (defun custom-occur ()
   (interactive)
   (call-interactively #'occur)
   (other-window 1)
   )
 
-;; Custom open window because I want to swap buffers when I split.
+;; Custom open window because I want to swap buffers when I 
+;; split.
 (defun custom-split-horizontal ()
   (interactive)
   (call-interactively #'split-window-right)
   (other-window 1)
   )
 
-;; Custom open window because I want to swap buffers when I split.
+;; Custom open window because I want to swap buffers when I 
+;; split.
 (defun custom-split-vertical ()
   (interactive)
   (call-interactively #'split-window-below)
   (other-window 1)
   )
 
-;; Custom open window because I want to swap buffers when I split.
+;; Custom open window because I want to swap buffers when I 
+;; split.
 (defun custom-open ()
   (interactive)
   (call-interactively #'ido-find-file)
   )
 
-;; Custom comment a line because apparently emacs 24 doesn't have the nice (comment-line) command.
+;; Custom comment a line because apparently emacs 24 doesn'
+;; t have the nice (comment-line) command.
 (defun custom-comment-line ()
   (interactive)
   (comment-or-uncomment-region (line-beginning-position) (line-end-position))
   )
 
+;; TODO(map) : This needs to be updated to include the 
+;; correct directory.
 (defun insert-grep-params (regex search-dir file-type)
   (if (string-equal search-dir "")
-      (setq search-dir default-directory)
+      (setq search-dir "YOUR_DIR_HERE")
     )
   (kill-whole-line)
-  (insert (format "grep -rnw %s --include=\\\%s -e %s" search-dir file-type regex))  
+  (insert (format "findstr /S /M %s %s\\%s" regex search-dir file-type))
   )
 
 (defun custom-grep-function ()
@@ -140,7 +154,8 @@
     )
   )
 
-;; Inserting custom templated docstrings for things we might need.
+;; Inserting custom templated docstrings for things we 
+;; might need.
 (defun custom-insert-docs ()
   (interactive)
   (let (doc_type)
@@ -272,7 +287,7 @@
      'get-org-skeleton))
 
 ;; Modal key bindings
-(define-key modalka-mode-map (kbd "a") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "a") 'custom-test) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "A") #'mark-whole-buffer)
 (define-key modalka-mode-map (kbd "b") 'switch-to-buffer)
 (define-key modalka-mode-map (kbd "B") 'list-buffers)
@@ -320,8 +335,8 @@
 (define-key modalka-mode-map (kbd "W") 'custom-occur)
 (define-key modalka-mode-map (kbd "x") 'execute-extended-command)
 (define-key modalka-mode-map (kbd "X") 'kill-region)
-(define-key modalka-mode-map (kbd "y") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "Y") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "y") 'scroll-down-command) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "Y") 'scroll-up-command) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "z") 'undo)
 (define-key modalka-mode-map (kbd "Z") 'ignore) ; NOTE(map) : Available
 
@@ -378,25 +393,14 @@
   "A minor mode with customized key bindings to ensure they override the major modes."
   :init-value t
   :lighter " my-keys")
-
+  
 ;; Set up smart line mode
 (sml/setup)
 (setq sml/theme 'dark)
-(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookServer/*" ":RecipeServer:") t)
-(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/RecipeBookUi/*" ":RecipeEJS:") t)
-(add-to-list 'sml/replacer-regexp-list '("~/Desktop/RecipeApp/recipe-book-react/*" ":RecipeReact:") t)
 (smart-mode-line-enable t)
 
-;; Setting global auto complete mode.
-(global-auto-complete-mode t)
-
-;; Using autopair because it deletes things nicely.
-(autopair-global-mode 1)
-
-;; Setting global parentheses highlight mode.
-(global-highlight-parentheses-mode t)
-
-;; Declaring some major modes for custom types of files.  More of a convenience than anything else.
+;; Declaring some major modes for custom types of files.  
+;; More of a convenience than anything else.
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . javascript-mode))
@@ -405,13 +409,9 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-mode))
 
-
 ;; NOTE(map) : Configuration settings
 ;; Enabling key mode.
 (my-keys-minor-mode 1)
-
-;; Setting global auto complete mode.
-(global-auto-complete-mode t)
 
 ;; Using autopair because it deletes things nicely.
 (autopair-global-mode 1)
@@ -435,8 +435,6 @@
 (auto-insert-mode t)
 ;; Default enable Modalka mode
 (modalka-global-mode 1)
-
-(split-screen-horizontally)
 
 (setq-default cursor-type 'box)
 (setq modalka-cursor-type '(bar . 1))
