@@ -104,6 +104,16 @@
   (ruby-todo-skeleton)
   )
 
+;; Add TODO key binding for Emacs Lisp mode.
+(define-skeleton elisp-todo-skeleton
+  "Inserts a TODO for an ELisp file."
+  nil
+  ";; TODO(map) : "
+  (indent-region (point-min) (point-max) nil))
+(defun insert-elisp-todo ()
+  (elisp-todo-skeleton)
+  )
+
 ;; Add TODO key binding for Org mode.
 (define-skeleton org-todo-skeleton
   "Inserts a TODO for a Org file."

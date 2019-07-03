@@ -171,6 +171,9 @@
     )
   (if (string-equal major-mode "org-mode")
       (insert-org-todo)
+    )
+  (if (string-equal major-mode "emacs-lisp-mode")
+      (insert-elisp-todo)
     ))
 
 (defun custom-insert-comment-block ()
