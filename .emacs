@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka csharp-mode ido-vertical-mode indent-mode))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka csharp-mode ido-vertical-mode indent-guide stickyfunc-enhance))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -27,7 +27,7 @@
 (require 'autopair)
 (require `highlight-parentheses)
 (require 'ido-vertical-mode)
-(require 'indent-guide)
+(require 'stickyfunc-enhance)
 
 ;; Define modalka mode to make this a modal editor.
 (require 'modalka)
@@ -97,6 +97,7 @@
   (comment-or-uncomment-region (line-beginning-position) (line-end-position))
   )
 
+;; TODO(map) : This needs to have a value search-dir conditional if one is not provided.
 (defun insert-grep-params (regex search-dir file-type)
   (if (string-equal search-dir "")
       (setq search-dir default-directory)
@@ -115,8 +116,7 @@
     (execute-extended-command nil "grep")
     (remove-hook 'minibuffer-setup-hook (lambda () (insert-grep-params regex search-dir file-type)))
     )
-  )
-
+)
 ;; Inserting custom templated docstrings for things we might need.
 (defun custom-insert-docs ()
   (interactive)
@@ -309,6 +309,8 @@
 (define-key modalka-mode-map (kbd "2") 'custom-split-vertical)
 (define-key modalka-mode-map (kbd "3") 'custom-split-horizontal)
 (define-key modalka-mode-map (kbd "/") 'custom-comment-line)
+(define-key modalka-mode-map (kbd "=") 'text-scale-increase)
+(define-key modalka-mode-map (kbd "-") 'text-scale-decrease)
 (define-key modalka-mode-map (kbd "<tab>") 'other-window)
 (define-key modalka-mode-map (kbd "<home>") #'beginning-of-buffer)
 (define-key modalka-mode-map (kbd "<end>") #'end-of-buffer)
@@ -409,11 +411,14 @@
 (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
 (semantic-mode 1)
 
+(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+(semantic-mode 1)
+
 (auto-insert-mode t)
 ;; Default enable Modalka mode
 (modalka-global-mode 1)
 
-(split-screen-horizontally)
+(split-window-horizontally)
 
 (setq-default cursor-type 'box)
 (setq modalka-cursor-type '(bar . 1))
