@@ -67,9 +67,7 @@
  )
 
 ;; Test comment for testing.
-;; TODO(map) : This needs to be modified to care about the 
-;; major mode that is being used so we know what comments 
-;; to look for.
+;; TODO(map) : This needs to be modified to care about the major mode that is being used so we know what comments to look for.
 (defun custom-test ()
   (interactive)
   (setq test-line (thing-at-point 'line 1))
@@ -92,6 +90,8 @@
     
 (defun custom-test-2 ()
   (interactive)
+  (setq current-line-number (string-to-number (nth 1 (split-string (what-line)))))
+  (setq original-file-lines (count-lines (point-min) (point-max)))
   (goto-char (point-min))
   (while (not (eobp))
     (setq test-line (thing-at-point 'line 1))
@@ -99,6 +99,10 @@
       (custom-test)
       )
     (forward-line 1))
+  (print current-line-number)
+  (setq formatted-file-lines (count-lines (point-min) (point-max)))
+  (setq file-line-difference (- formatted-file-lines original-file-lines))
+  (goto-line (+ current-line-number file-line-difference))
   )
 
 ;; (add-hook 'before-save-hook #'custom-test-2)
@@ -315,8 +319,8 @@
 (define-key modalka-mode-map (kbd "H") #'move-beginning-of-line)
 (define-key modalka-mode-map (kbd "i") #'modalka-mode)
 (define-key modalka-mode-map (kbd "I") 'custom-insert-docs)
-(define-key modalka-mode-map (kbd "j") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "J") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "j") 'scroll-down-command)
+(define-key modalka-mode-map (kbd "J") 'scroll-up-command)
 (define-key modalka-mode-map (kbd "k") 'kill-this-buffer)
 (define-key modalka-mode-map (kbd "K") 'kill-whole-line)
 (define-key modalka-mode-map (kbd "l") 'goto-line)
@@ -345,8 +349,8 @@
 (define-key modalka-mode-map (kbd "W") 'custom-occur)
 (define-key modalka-mode-map (kbd "x") 'execute-extended-command)
 (define-key modalka-mode-map (kbd "X") 'kill-region)
-(define-key modalka-mode-map (kbd "y") 'scroll-down-command) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "Y") 'scroll-up-command) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "y") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "Y") 'ignore) ; NOTE(map) : Available
 (define-key modalka-mode-map (kbd "z") 'undo)
 (define-key modalka-mode-map (kbd "Z") 'ignore) ; NOTE(map) : Available
 
