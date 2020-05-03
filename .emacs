@@ -426,6 +426,7 @@
 (setq-default cursor-type 'box)
 (setq modalka-cursor-type '(bar . 1))
 (setq inhibit-startup-screen t)
+(setq column-number-mode t)
 (setq org-log-done t)
 (setq scroll-step 1) ;;Scroll one line at a time
 (setq backup-directory-alist `(("." . "~/.saves")))
