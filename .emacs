@@ -207,6 +207,16 @@
     )
   )
 
+(defun custom-jump-x-lines-up ()
+  (interactive)
+  (forward-line 20)
+  )
+
+(defun custom-jump-x-lines-down ()
+  (interactive)
+  (forward-line -20)
+  )
+
 ;; Setting up auto insert for various filex.
 (eval-after-load 'autoinsert
   '(define-auto-insert
@@ -300,8 +310,8 @@
 (define-key modalka-mode-map (kbd "W") 'custom-occur)
 (define-key modalka-mode-map (kbd "x") 'execute-extended-command)
 (define-key modalka-mode-map (kbd "X") 'kill-region)
-(define-key modalka-mode-map (kbd "y") 'ignore) ; NOTE(map) : Available
-(define-key modalka-mode-map (kbd "Y") 'ignore) ; NOTE(map) : Available
+(define-key modalka-mode-map (kbd "y") 'custom-jump-x-lines-up)
+(define-key modalka-mode-map (kbd "Y") 'custom-jump-x-lines-down)
 (define-key modalka-mode-map (kbd "z") 'undo)
 (define-key modalka-mode-map (kbd "Z") 'ignore) ; NOTE(map) : Available
 
