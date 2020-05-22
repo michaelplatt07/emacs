@@ -2,7 +2,7 @@
 
 ;; Setting up the list of packages that will be automatically installed.
 ;; Add any new desired packages to this list.  They are white space delimitted.
-(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka csharp-mode ido-vertical-mode indent-guide stickyfunc-enhance))
+(setq package-list '(hl-todo auto-complete tabbar highlight-parentheses json-mode json-reformat pug-mode php-mode autopair flex-autopair rjsx-mode smart-mode-line flymd modalka csharp-mode ido-vertical-mode indent-guide stickyfunc-enhance kotlin-mode))
 
 ;; Adding the melpa package archive for melpa packages.
 ;; Note: If there is a new archive you'll need to add it like the melpa archive was added.
@@ -396,7 +396,7 @@
 (add-to-list 'auto-mode-alist '("\\.ejs\\'" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-mode))
-
+(add-to-list 'auto-mode-alist '("\\.kt\\'" . kotlin-mode))
 
 ;; NOTE(map) : Configuration settings
 ;; Enabling key mode.
