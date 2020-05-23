@@ -22,6 +22,10 @@
 
 ;; 
 
+;; TODO(map) : Figure out why this isn't working anymore at some point
+;;   (indent-region (point-min) (point-max) nil))
+
+
 ;;; Code:
 
 ;; Add TODO key binding for Java mode.
@@ -29,7 +33,7 @@
   "Inserts a TODO for a Java file."
   nil
   "// TODO(map) \: "
-  (indent-region (point-min) (point-max) nil))
+  )
 (defun insert-java-todo ()
   (java-todo-skeleton)
   )
@@ -39,7 +43,7 @@
   "Inserts a TODO for a JavaScript file."
   nil
   "// TODO(map) : "
-  (indent-region (point-min) (point-max) nil))
+)
 (defun insert-javascript-todo ()
   (javascript-todo-skeleton)
   )
@@ -49,8 +53,7 @@
   "Inserts a TODO for a Python file."
   nil
   "# TODO(map) : "
-  (indent-region (point-min) (point-max) nil))
-(defun insert-python-todo ()
+)(defun insert-python-todo ()
   (python-todo-skeleton)
   )
 
@@ -59,8 +62,7 @@
   "Inserts a TODO for a HTML file."
   nil
   "<!-- TODO(map) : -->"
-  (indent-region (point-min) (point-max) nil))
-(defun insert-html-todo ()
+)(defun insert-html-todo ()
   (html-todo-skeleton)
   )
 
@@ -69,8 +71,7 @@
   "Inserts a TODO for a C Plus Plus file."
   nil
   "// TODO(map) : "
-  (indent-region (point-min) (point-max) nil))
-(defun insert-cpp-todo ()
+)(defun insert-cpp-todo ()
   (cpp-todo-skeleton)
   )
 
@@ -79,8 +80,7 @@
   "Inserts a TODO for a C# file."
   nil
   "// TODO(map) : "
-  (indent-region (point-min) (point-max) nil))
-(defun insert-csharp-todo ()
+)(defun insert-csharp-todo ()
   (csharp-todo-skeleton)
   )
 
@@ -89,8 +89,7 @@
   "Inserts a TODO for a PHP file."
   nil
   "// TODO(map) : "
-  (indent-region (point-min) (point-max) nil))
-(defun insert-php-todo ()
+)(defun insert-php-todo ()
   (php-todo-skeleton)
   )
 
@@ -99,8 +98,7 @@
   "Inserts a TODO for a Ruby file."
   nil
   "# TODO(map) : "
-  (indent-region (point-min) (point-max) nil))
-(defun insert-ruby-todo ()
+)(defun insert-ruby-todo ()
   (ruby-todo-skeleton)
   )
 
@@ -109,9 +107,17 @@
   "Inserts a TODO for an ELisp file."
   nil
   ";; TODO(map) : "
-  (indent-region (point-min) (point-max) nil))
-(defun insert-elisp-todo ()
+)(defun insert-elisp-todo ()
   (elisp-todo-skeleton)
+  )
+
+;; Add TODO key binding for Kotlin mode.
+(define-skeleton kotlin-todo-skeleton
+  "Inserts a TODO for an Kotlin file."
+  nil
+  "// TODO(map) : "
+)(defun insert-kotlin-todo ()
+  (kotlin-todo-skeleton)
   )
 
 ;; Add TODO key binding for Org mode.
@@ -126,7 +132,6 @@
 (defun insert-org-todo ()
   (org-todo-skeleton)
   )
-
 
 (provide 'todo-templates)
 ;;; todo-templates.el ends here
